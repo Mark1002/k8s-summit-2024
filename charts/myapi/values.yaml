@@ -5,10 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: tiangolo/uvicorn-gunicorn-fastapi
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: python3.11-slim
+
+# Command and args of the container
+command: ["uvicorn"]
+args: ["main:app", "--host", "0.0.0.0", "--port", "8080"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,6 +42,8 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+containerPort: 8080
 
 service:
   type: ClusterIP
